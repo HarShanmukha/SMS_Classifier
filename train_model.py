@@ -5,16 +5,20 @@ from sklearn.pipeline import Pipeline
 import pickle
 
 # Load dataset
-df = pd.read_csv("data/dataset.csv", quoting=1)  # quoting=1 => QUOTE_ALL
+df = pd.read_csv("data/spam.csv", encoding="latin1")
 
+# Keep only necessary columns
+df = df[["v1", "v2"]]
+df.columns = ["label", "text"]
 
-# ✅ Ensure correct columns
-print(df.head())   # Debugging (remove later)
+# Drop missing values
+df = df.dropna()
 
-X = df["text"].astype(str)   # Features (messages)
-y = df["label"].astype(str)  # Labels (spam/ham)
+# Features & Labels
+X = df["text"].astype(str)
+y = df["label"].astype(str)
 
-# Create pipeline
+# Build pipeline
 model = Pipeline([
     ("vectorizer", TfidfVectorizer()),
     ("classifier", MultinomialNB())
