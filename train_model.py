@@ -5,10 +5,10 @@ from sklearn.pipeline import Pipeline
 import pickle
 
 # Load dataset
-df = pd.read_csv("data/spam.csv", encoding="latin1")
+df = pd.read_csv("data/dataset.csv", encoding="latin1")
 
 # Keep only necessary columns
-df = df[["v1", "v2"]]
+df = df[["label", "text"]]
 df.columns = ["label", "text"]
 
 # Drop missing values
